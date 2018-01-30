@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180130144117) do
+ActiveRecord::Schema.define(version: 20180130164000) do
 
   create_table "tokens", force: :cascade do |t|
     t.string   "access_token"
@@ -20,6 +20,20 @@ ActiveRecord::Schema.define(version: 20180130144117) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "user_transactions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "product_name"
+    t.decimal  "product_price"
+    t.string   "seller_name"
+    t.datetime "date"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "message_id"
+  end
+
+  add_index "user_transactions", ["message_id"], name: "index_user_transactions_on_message_id"
+  add_index "user_transactions", ["user_id"], name: "index_user_transactions_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -34,6 +48,9 @@ ActiveRecord::Schema.define(version: 20180130144117) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "gmail_access_token"
+    t.string   "gmail_refresh_token"
+    t.datetime "expires_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

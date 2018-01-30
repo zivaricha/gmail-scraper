@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  get 'welcome/index'
-  root to: 'sessions#new'
+  root to: 'welcome#index'
+  get 'scrape', to: "scrapes#scrape"
+  resources :user_transactions, only: [:index]
+  #root to: 'sessions#new'
   
   #get "/auth/:provider/callback" => 'sessions#create'
   # The priority is based upon order of creation: first created -> highest priority.
